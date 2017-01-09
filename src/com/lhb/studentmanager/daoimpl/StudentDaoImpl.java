@@ -152,7 +152,7 @@ public class StudentDaoImpl extends ConnectDB implements StudentDao {
 	@Override
 	public List<Student> showStudent() {
 		Session session = sessionFactory.getCurrentSession();
-		String hql = "from STUDENT";
+		String hql = "from Student";
 		Query query = session.createQuery(hql);
 		List<Student> studentList = query.list();
 		return studentList;

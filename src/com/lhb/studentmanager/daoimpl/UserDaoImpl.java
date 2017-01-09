@@ -34,36 +34,15 @@ public class UserDaoImpl extends ConnectDB implements UserDao {
 
 	@Override
 	public User getUser(String userName, String password) {
-		User u=new User(userName,password);
-				
 		User user = null;
-
-		
-		
-/*		String sql = "SELECT * FROM user WHERE userName=? AND password=?";
-		Connection connect = null;
-		PreparedStatement ps = null;
-		ResultSet rs = null;
-		try {
-			connect = getConnection();
-			ps = connect.prepareStatement(sql);
-			ps.setString(1, userName);
-			ps.setString(2, password);
-			rs = ps.executeQuery();
-			if (rs.next()) {
-				String uname = rs.getString("userName");				
-				String psw = rs.getString("password");
-				int rank=rs.getInt("rank");
-				int ID =rs.getInt("ID");
-				user = new User(uname, psw,rank,ID);
-			}
-		} catch (SQLException e) {
-			e.printStackTrace();
-		} finally {
-			closeResultSet(rs);
-			closePreparedStatement(ps);
-			closeConnection(connect);
-		}*/
+		String hql="FROM User AS u WHERE u.userName=:name AND u.password=:pw";
+		Session session=sessionFactory.getCurrentSession();
+		session.beginTransaction();
+		Query query=session.getNamedQuery(hql);
+		query.setParameter("name", userName);
+		query.setParameter("pw", password);
+		session.getTransaction().commit();
+		user=(User) query.uniqueResult();
 		return user;
 	}
  
@@ -75,29 +54,13 @@ public class UserDaoImpl extends ConnectDB implements UserDao {
 	public User getUser(String userName) {
 		// TODO Auto-generated method stub
 		User user = null;
-		String sql = "SELECT * FROM user WHERE userName=?";
-		Connection connect = null;
-		PreparedStatement ps = null;
-		ResultSet rs = null;
-		try {
-			connect = getConnection();
-			ps = connect.prepareStatement(sql);
-			ps.setString(1, userName);
-			rs = ps.executeQuery();
-			if (rs.next()) {
-				String uname = rs.getString("userName");				
-				String psw = rs.getString("password");
-				int rank=rs.getInt("rank");
-				int id =rs.getInt("id");
-				user = new User(uname, psw,rank,id);
-			}
-		} catch (SQLException e) {
-			e.printStackTrace();
-		} finally {
-			closeResultSet(rs);
-			closePreparedStatement(ps);
-			closeConnection(connect);
-		}
+		String hql="SELECT * FROM User AS u WHERE u.userName=:name";
+		Session session=sessionFactory.getCurrentSession();
+		session.beginTransaction();
+		Query query=session.getNamedQuery(hql);
+		query.setParameter("name", userName);
+		session.getTransaction().commit();
+		user=(User) query.uniqueResult();
 		return user;
 	}
 
@@ -133,7 +96,7 @@ public class UserDaoImpl extends ConnectDB implements UserDao {
 	@Override
 	public List<User> showUser() {
 		  Session session = sessionFactory.getCurrentSession();  
-	        String hql = "from USER";  
+	        String hql = "from User";  
 	        Query query = session.createQuery(hql);  
 	        List<User> userList = query.list();  
 	        return userList;  		
