@@ -7,7 +7,7 @@ package com.lhb.studentmanager.model;
  *
  */
 public class Student {
-	private int id;// 姓名
+	private int id;// id
 	private String name;// 姓名
 	private int number;// 学号
 	private int age;// 年龄

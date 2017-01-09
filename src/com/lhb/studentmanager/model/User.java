@@ -7,10 +7,10 @@ package com.lhb.studentmanager.model;
  *
  */
 public class User {
+	private int id;//ID
 	private String userName;// 用户名
 	private String password;// 密码
 	private int rank;//权限
-	private int id;//ID
 
 
 	public User() {

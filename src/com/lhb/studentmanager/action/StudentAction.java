@@ -106,18 +106,6 @@ public class StudentAction extends ActionSupport implements ModelDriven<Student>
 		requestMap.put("error", "查找学生失败！");
 		return "find";
 	}
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
 
 	public File getHeaderImg() {
 		return headerImg;
