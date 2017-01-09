@@ -1,0 +1,17 @@
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.5//EN"
+    "http://struts.apache.org/dtds/struts-2.5.dtd">
+<struts>
+	<package name="student" namespace="/" extends="struts-default">
+		<!-- 解决struts2.5 通配符调用无效的问题 -->
+		<global-allowed-methods>regex:.*</global-allowed-methods>
+
+		<action name="student_*" class="com.lhb.studentmanager.action.StudentAction" method="{1}">
+			<result type="chain">student_show</result>
+			<result name="input">/jsp/student/add_student.jsp</result>
+			<result name="show">/jsp/student/student_list.jsp</result>
+			<result name="find">/jsp/student/find_student.jsp</result>
+		</action>
+
+	</package>
+</struts>

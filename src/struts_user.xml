@@ -1,0 +1,17 @@
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.5//EN"
+    "http://struts.apache.org/dtds/struts-2.5.dtd">
+<struts>
+	<package name="user" namespace="/" extends="struts-default">
+		<!-- 解决struts2.5 通配符调用无效的问题 -->
+		<global-allowed-methods>regex:.*</global-allowed-methods>
+
+		<action name="user_*" class="com.lhb.studentmanager.action.UserAction" method="{1}">
+			<result type="chain">user_show</result>
+			<result name="input">/jsp/user/add_user.jsp</result>
+			<result name="delete">/jsp/user/user_list.jsp</result>
+			<result name="show">/jsp/user/user_list.jsp</result>
+		</action>
+
+	</package>
+</struts>
