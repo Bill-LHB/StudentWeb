@@ -28,7 +28,7 @@ public class UserServerImpl implements UserServer {
 			return false;
 		return true;
 	}
-	
+
 	@Override
 	public User getUser(String userName) {
 		// TODO Auto-generated method stub
@@ -39,53 +39,60 @@ public class UserServerImpl implements UserServer {
 		// TODO Auto-generated method stub
 		return userDao.getUser(id);
 	}
-	
+
 	/**
 	 * 添加用户信息
 	 */
 	@Override
 	public boolean addUser(User user) {
 		// TODO Auto-generated method stub
-		if(userDao.getUser(user.getUserName())!=null){
+		if (userDao.getUser(user.getUserName()) != null) {
 			return false;
 		}
-		return userDao.addUser(user);
+		userDao.addUser(user);
+		return true;
 	}
+
 	/**
 	 * 删除用户信息
 	 */
 	@Override
 	public boolean deleteUser(int id) {
 		// TODO Auto-generated method stub
-		if(userDao.getUser(id)==null){
+		User user = userDao.getUser(id);
+		if (user == null) {
 			return false;
 		}
-		return userDao.deleteUser(id);
+		userDao.deleteUser(user);
+		return true;
 	}
+
 	/**
 	 * 修改用户信息
 	 */
 	@Override
 	public boolean updateUser(User user) {
-		User dbuser=userDao.getUser(user.getId());//获取原数据库内用户信息
-		if(dbuser==null){//判断修改用户是否存在
+		User dbuser = userDao.getUser(user.getId());// 获取原数据库内用户信息
+		if (dbuser == null) {// 判断修改用户是否存在
 			return false;
 		}
-		if(!user.getUserName().equals(dbuser.getUserName())){//判断是否修改用户名
-			if(userDao.getUser(user.getUserName())!=null){//判断修改后的用户名是否存在
+		if (!user.getUserName().equals(dbuser.getUserName())) {// 判断是否修改用户名
+			if (userDao.getUser(user.getUserName()) != null) {// 判断修改后的用户名是否存在
 				return false;
 			}
 		}
-		//修改数据库
-		return userDao.updateUser(user);	
+		// 修改数据库
+		userDao.updateUser(user);
+		return true;
 	}
+
 	/**
 	 * 显示用户信息
 	 */
 	@Override
-	public List<User> showUser() {
-		// TODO Auto-generated method stub		
-		return userDao.showUser();
+	public List<User> getUser() {
+		// TODO Auto-generated method stub
+		return userDao.findAllUser();
 	}
 
 }

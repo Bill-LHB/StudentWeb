@@ -30,25 +30,26 @@ public class StudentServerImpl implements StudentServer {
 	 */
 	@Override
 	public boolean addStudent(Student student, File headerImg, String headerImgFileName, String savedir) {
-		
+
 		// 判断学号是否存在，存在返回false
 		if (studentDao.findStudentByNumber(student.getNumber()).get(0) != null) {
 			return false;
-		}		
+		}
 		String headerImgUrl = "";
 		// 判断是否上传头像，是上传头像，执行上传操作，并修改头像url
 		if (headerImg != null) {
 			headerImgUrl = "/upload/" + headerImgFileName;
-				File saveFile = new File(savedir, headerImgFileName);
-				FileUtil.createFile(saveFile);
-				FileUtil.copy(headerImg, saveFile);
-		
+			File saveFile = new File(savedir, headerImgFileName);
+			FileUtil.createFile(saveFile);
+			FileUtil.copy(headerImg, saveFile);
+
 		}
 
 		// 将学生信息添加至数据库
-		Student stu = new Student(student.getName(), student.getNumber(), student.getAge(), student.isSex(),
+		Student stu = new Student(student.getName(), student.getNumber(), student.getAge(), student.getSex(),
 				headerImgUrl);
-		return studentDao.addStudent(stu);
+		studentDao.addStudent(stu);
+		return true;
 	}
 
 	/**
@@ -65,46 +66,48 @@ public class StudentServerImpl implements StudentServer {
 		}
 		File file = new File(rootDir + student.getHeaderImg());
 		deleteFile(file);
-		
+
 		// 从数据库删除学生信息
-		return studentDao.deleteStudent(id);
+		studentDao.deleteStudent(student);
+		return true;
 	}
 
 	/**
 	 * 修改学生信息
 	 */
 	// @Override
-	public boolean updateStudent(Student student,String savedir,String headerImgFileName,File headerImg) {
+	public boolean updateStudent(Student student, String savedir, String headerImgFileName, File headerImg) {
 		// 获取需要修改学生数据库信息
 		Student stuDB = studentDao.findStudentById(student.getId());
 		// 修改学生数据库不存在，返回false
 		if (stuDB == null) {
 			return false;
 		}
-		
-		if(stuDB.getNumber()!=student.getNumber()){//判断是否修改学号
-			if(studentDao.findStudentByNumber(student.getNumber())!=null){//判断修改学号是否存在
+
+		if (stuDB.getNumber() != student.getNumber()) {// 判断是否修改学号
+			if (studentDao.findStudentByNumber(student.getNumber()) != null) {// 判断修改学号是否存在
 				return false;
 			}
-			
+
 		}
-		//原头像路径
-		String headerImgUrl=stuDB.getHeaderImg();
-		if(headerImg != null){//判断是否上传头像
+		// 原头像路径
+		String headerImgUrl = stuDB.getHeaderImg();
+		if (headerImg != null) {// 判断是否上传头像
 			File saveFile = new File(savedir, headerImgFileName);
-			FileUtil.createFile(saveFile);	
-			headerImgUrl = "/upload/" + headerImgFileName;		
+			FileUtil.createFile(saveFile);
+			headerImgUrl = "/upload/" + headerImgFileName;
 			FileUtil.copy(headerImg, saveFile);
-		
+
 			File oldfile = new File(savedir, stuDB.getHeaderImg());
-			//删除原头像
+			// 删除原头像
 			deleteFile(oldfile);
-			
+
 		}
-		//更新数据库数据
-		Student stu=new Student(student.getName(), student.getNumber(), student.getAge(), student.isSex(),
+		// 更新数据库数据
+		Student stu = new Student(student.getName(), student.getNumber(), student.getAge(), student.getSex(),
 				headerImgUrl);
-		return studentDao.updateStudent(stu);
+		studentDao.updateStudent(stu);
+		return true;
 
 	}
 
@@ -112,15 +115,11 @@ public class StudentServerImpl implements StudentServer {
 	 * 显示所有学生信息
 	 */
 	@Override
-	public List<Student> showStudent() {
+	public List<Student> getStudent() {
 		// TODO Auto-generated method stub
-		return studentDao.showStudent();
+		return studentDao.findAllStudent();
 	}
 
-	
-	
-	
-	
 	/**
 	 * 通过查询信息查找学生
 	 */
@@ -144,7 +143,7 @@ public class StudentServerImpl implements StudentServer {
 	@Override
 	public List<Student> findStudent(int message) {
 		// TODO Auto-generated method stub
-		List<Student> studentList =studentDao.findStudentByNumber(message);
+		List<Student> studentList = studentDao.findStudentByNumber(message);
 		return studentList;
 	}
 
@@ -153,6 +152,7 @@ public class StudentServerImpl implements StudentServer {
 		// TODO Auto-generated method stub
 		return studentDao.findStudentById(id);
 	}
+
 	/**
 	 * 判定文件是否为文件，是文件执行删除
 	 * 
@@ -167,6 +167,5 @@ public class StudentServerImpl implements StudentServer {
 			}
 		}
 	}
-
 
 }

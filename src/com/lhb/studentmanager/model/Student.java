@@ -11,10 +11,10 @@ public class Student {
 	private String name;// 姓名
 	private int number;// 学号
 	private int age;// 年龄
-	private boolean sex;// 性别 true为男 false 为女
+	private int sex;// 性别 0为男 1 为女
 	private String headerImg;// 头像
 
-	public Student(int id, String name, int number, int age, boolean sex, String headerImg) {
+	public Student(int id, String name, int number, int age, int sex, String headerImg) {
 
 		this.id = id;
 		this.name = name;
@@ -24,15 +24,7 @@ public class Student {
 		this.headerImg = headerImg;
 	}
 
-	public Student(String name, int number, int age, boolean sex) {
-
-		this.name = name;
-		this.number = number;
-		this.age = age;
-		this.sex = sex;
-	}
-
-	public Student(String name, int number, int age, boolean sex, String headerImg) {
+	public Student(String name, int number, int age, int sex, String headerImg) {
 
 		this.name = name;
 		this.number = number;
@@ -41,8 +33,24 @@ public class Student {
 		this.headerImg = headerImg;
 	}
 
+	public Student(String name, int number, int age, int sex) {
+
+		this.name = name;
+		this.number = number;
+		this.age = age;
+		this.sex = sex;
+	}
+
 	public Student() {
 
+	}
+
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
 	}
 
 	public String getName() {
@@ -69,11 +77,11 @@ public class Student {
 		this.age = age;
 	}
 
-	public boolean isSex() {
+	public int getSex() {
 		return sex;
 	}
 
-	public void setSex(boolean sex) {
+	public void setSex(int sex) {
 		this.sex = sex;
 	}
 
@@ -87,16 +95,8 @@ public class Student {
 
 	@Override
 	public String toString() {
-		return "Student [name=" + name + ", number=" + number + ", age=" + age + ", sex=" + sex + ", headerImg="
-				+ headerImg + "]";
-	}
-
-	public int getId() {
-		return id;
-	}
-
-	public void setId(int id) {
-		this.id = id;
+		return "Student [id=" + id + ", name=" + name + ", number=" + number + ", age=" + age + ", sex=" + sex
+				+ ", headerImg=" + headerImg + "]";
 	}
 
 }

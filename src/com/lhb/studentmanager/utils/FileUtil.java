@@ -214,22 +214,23 @@ public class FileUtil {
 		return true;
 
 	}
-	
+
 	/**
 	 * 将oldFile复制到newFile
+	 * 
 	 * @param oldFile
 	 * @param newFile
 	 * @throws IOException
 	 */
-	public static void copy(File oldFile,File newFile){
-		InputStream in=null;
-		OutputStream os=null;
+	public static void copy(File oldFile, File newFile) {
+		InputStream in = null;
+		OutputStream os = null;
 		try {
 			in = new FileInputStream(oldFile);
 			os = new FileOutputStream(newFile);
 			byte[] bytes = new byte[512];
 			int len = 0;
-			while((len = in.read(bytes)) != -1){
+			while ((len = in.read(bytes)) != -1) {
 				os.write(bytes, 0, len);
 			}
 		} catch (FileNotFoundException e) {
@@ -238,12 +239,12 @@ public class FileUtil {
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		}finally{
+		} finally {
 			try {
-				if(os!=null)
+				if (os != null)
 					os.close();
-				if(in!=null)
-				in.close();
+				if (in != null)
+					in.close();
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();

@@ -81,7 +81,7 @@ public class UserAction extends ActionSupport implements ModelDriven<User>, Requ
 	 */
 	public String show() {
 		List<User> userList = new ArrayList<>();
-		userList = userServer.showUser();
+		userList = userServer.getUser();
 		requestMap.put("userList", userList);
 
 		return "show";

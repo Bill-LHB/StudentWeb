@@ -5,17 +5,17 @@ import java.util.List;
 import com.lhb.studentmanager.model.Student;
 
 public interface StudentDao {
-	boolean addStudent(Student student);// 添加学生
+	List<Student> findStudentByNumber(int number);// 通过学号查找数据库该学生信息
 
-	boolean deleteStudent(int id);// 删除学生
+	List<Student> findStudentByName(String name);// 通过姓名查找数据库该学生信息
 
-	boolean updateStudent(Student student);// 修改学生
+	Student findStudentById(int id);// 通过ID查找数据库该学生信息
 
-	List<Student> findStudentByNumber(int number);// 查找学号查找学生
+	void addStudent(Student student);// 添加学生到数据库
 
-	List<Student> findStudentByName(String name);// 通过姓名查找学生
+	void deleteStudent(Student student);// 删除数据库该学生信息
 
-	Student findStudentById(int id);// 通过id查找学生
+	void updateStudent(Student student);// 修改数据库该学生信息
 
-	List<Student> showStudent();// 显示学生列表
+	List<Student> findAllStudent();// 查询数据库内所有学生信息
 }

@@ -29,7 +29,7 @@ public class StudentAction extends ActionSupport implements ModelDriven<Student>
 	private String headerImgFileName;// 变量名为：表单相应name+FileName
 
 	public StudentAction() {
-		//获取应用上下文路径
+		// 获取应用上下文路径
 		savedir = ServletActionContext.getServletContext().getRealPath("/upload");
 	}
 
@@ -39,12 +39,12 @@ public class StudentAction extends ActionSupport implements ModelDriven<Student>
 	 * @return
 	 */
 	public String add() {
-		if(studentModel.getId()==0){
+		if (studentModel.getId() == 0) {
 			if (studentServer.addStudent(studentModel, headerImg, headerImgFileName, savedir))
 				return SUCCESS;
 			requestMap.put("error", "添加学生失败！");
 			return INPUT;
-		}else{
+		} else {
 			int id = (int) requestMap.get("id");
 			if (studentServer.updateStudent(studentModel, savedir, headerImgFileName, headerImg))
 				return SUCCESS;
@@ -74,7 +74,7 @@ public class StudentAction extends ActionSupport implements ModelDriven<Student>
 	 */
 	public String update() {
 		int id = (int) requestMap.get("id");
-		Student stu=studentServer.findStudentById(id);
+		Student stu = studentServer.findStudentById(id);
 		requestMap.put("student", stu);
 		return INPUT;
 	}
@@ -85,9 +85,13 @@ public class StudentAction extends ActionSupport implements ModelDriven<Student>
 	 * @return
 	 */
 	public String show() {
-		List<Student> studentList = studentServer.showStudent();
-		requestMap.put("studentList", studentList);
+		List<Student> studentList = studentServer.getStudent();
+		for(Student student:studentList){
+			System.out.println(student);	
+		}
 		
+		requestMap.put("studentList", studentList);
+
 		return "show";
 	}
 

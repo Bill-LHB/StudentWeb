@@ -1,13 +1,9 @@
 package com.lhb.studentmanager.daoimpl;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.List;
 
 import org.hibernate.Query;
+import org.hibernate.SQLQuery;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 
@@ -21,6 +17,7 @@ public class StudentDaoImpl extends ConnectDB implements StudentDao {
 	private static StudentDaoImpl studentDaoImpl = null;
 	private static SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
 
+	// private static Session session = sessionFactory.getCurrentSession();
 	public static StudentDaoImpl getInstance() {
 		if (studentDaoImpl == null)
 			studentDaoImpl = new StudentDaoImpl();
@@ -31,34 +28,43 @@ public class StudentDaoImpl extends ConnectDB implements StudentDao {
 
 	}
 
+	/**
+	 * 添加学生到数据库
+	 */
 	@Override
-	public boolean addStudent(Student student) {
+	public void addStudent(Student student) {
 		// TODO Auto-generated method stub
 		Session session = sessionFactory.getCurrentSession();
 		session.beginTransaction();
 		session.save(student);
 		session.getTransaction().commit();
-		return false;
 	}
 
+	/**
+	 * 通过ID删除数据库学生信息
+	 */
 	@Override
-	public boolean deleteStudent(int id) {
+	public void deleteStudent(Student student) {
 		Session session = sessionFactory.getCurrentSession();
 		session.beginTransaction();
-		session.delete(findStudentById(id));
+		session.delete(student);
 		session.getTransaction().commit();
-		return false;
 	}
 
+	/**
+	 * 更新数据库学生信息
+	 */
 	@Override
-	public boolean updateStudent(Student student) {
+	public void updateStudent(Student student) {
 		Session session = sessionFactory.getCurrentSession();
 		session.beginTransaction();
 		session.update(student);
 		session.getTransaction().commit();
-		return false;
 	}
 
+	/**
+	 * 通过ID查找数据库学生信息
+	 */
 	@Override
 	public Student findStudentById(int id) {
 		Student student = null;
@@ -69,92 +75,50 @@ public class StudentDaoImpl extends ConnectDB implements StudentDao {
 		return student;
 	}
 
+	/**
+	 * 通过学号查找学生信息
+	 */
 	@Override
 	public List<Student> findStudentByNumber(int number) {
-		ArrayList<Student> studentList=null;
-		
-		
-		String hql = "SELECT FROM student where  number = ?" ;  
-        Query query = sessionFactory.getCurrentSession().createQuery(hql);  
-        query.setInteger(0, number);  
-        query.executeUpdate();
-		
-		
-		
-		
-		/*String sql = "SELECT * FROM student WHERE number = ?";
-		Connection connect = null;
-		PreparedStatement ps = null;
-		ResultSet rs = null;
-		ArrayList<Student> studentList = null;
-
-		try {
-			studentList = new ArrayList<>();
-			connect = getConnection();
-			ps = connect.prepareStatement(sql);
-			ps.setInt(1, number);
-			rs = ps.executeQuery();
-			if (rs.next()) {
-				int dbid = rs.getInt("sid");
-				String na = rs.getString("name");
-				int num = rs.getInt("number");
-				int age = rs.getInt("age");
-				boolean sex = rs.getBoolean("sex");
-				String url = rs.getString("fileUrl");
-				Student student = new Student(dbid, na, num, age, sex, url);
-				studentList.add(student);
-			}
-		} catch (SQLException e) {
-			e.printStackTrace();
-		} finally {
-			closeResultSet(rs);
-			closePreparedStatement(ps);
-			closeConnection(connect);
-		}*/
-
+		List<Student> studentList = null;
+		Session session = sessionFactory.getCurrentSession();
+		session.beginTransaction();
+		// int id, String name, int number, int age, int sex, String headerImg
+		String hql = "FROM Student AS s WHERE s.number =:num";
+		Query query = session.createQuery(hql);
+		query.setParameter("num", number);
+		studentList = query.list();
+		session.getTransaction().commit();
 		return studentList;
 	}
 
+	/**
+	 * 通过姓名查找学生信息
+	 */
 	@Override
 	public List<Student> findStudentByName(String name) {
-		// TODO Auto-generated method stub
-		String sql = "SELECT * FROM student WHERE name = ?";
-		Connection connect = null;
-		PreparedStatement ps = null;
-		ResultSet rs = null;
-		ArrayList<Student> studentList = null;
-		try {
-			studentList = new ArrayList<>();
-			connect = getConnection();
-			ps = connect.prepareStatement(sql);
-			ps.setString(1, name);
-			rs = ps.executeQuery();
-			while (rs.next()) {
-				int dbid = rs.getInt("sid");
-				String na = rs.getString("name");
-				int num = rs.getInt("number");
-				int age = rs.getInt("age");
-				boolean sex = rs.getBoolean("sex");
-				String url = rs.getString("fileUrl");
-				Student student = new Student(dbid, na, num, age, sex, url);
-				studentList.add(student);
-			}
-		} catch (SQLException e) {
-			e.printStackTrace();
-		} finally {
-			closeResultSet(rs);
-			closePreparedStatement(ps);
-			closeConnection(connect);
-		}
+		List<Student> studentList = null;
+		Session session = sessionFactory.getCurrentSession();
+		session.beginTransaction();
+		String hql = "FROM Student AS s where s.name =:names";
+		Query query = session.createQuery(hql);
+		query.setParameter("names", name);
+		studentList = query.list();
+		session.getTransaction().commit();
 		return studentList;
 	}
 
+	/**
+	 * 获取数据库所有学生信息
+	 */
 	@Override
-	public List<Student> showStudent() {
+	public List<Student> findAllStudent() {
 		Session session = sessionFactory.getCurrentSession();
+		session.beginTransaction();
 		String hql = "from Student";
 		Query query = session.createQuery(hql);
 		List<Student> studentList = query.list();
+		session.getTransaction().commit();
 		return studentList;
 	}
 

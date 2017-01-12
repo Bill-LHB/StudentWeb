@@ -6,19 +6,17 @@ import com.lhb.studentmanager.model.User;
 
 public interface UserDao {
 
-	User getUser(String userName, String password);// 通过用户名和密码获取用户
+	User getUser(String userName, String password);// 通过用户名和密码获取数据库用户信息
 
-	User getUser(String userName);// 通过用户名获取用户
-	
-	//User getUserexclude(User user);// 通过用户名获取用户
+	User getUser(String userName);// 通过用户名获取数据库用户信息
 
-	User getUser(int ID);// 通过用户id获取用户
+	User getUser(int ID);// 通过用户id获取数据库用户信息
 
-	boolean addUser(User user);// 添加用户
+	void addUser(User user);// 添加用户信息到数据库
 
-	boolean deleteUser(int id);// 删除用户
+	void deleteUser(User user);// 删除数据库该用户信息
 
-	boolean updateUser(User user);// 修改用户
+	void updateUser(User user);// 修改数据该用户信息
 
-	List<User> showUser();// 显示用户列表
+	List<User> findAllUser();// 查询数据库所有用户信息
 }

@@ -21,13 +21,12 @@ public class LoginAction extends ActionSupport implements ModelDriven<User>, Req
 
 	@Override
 	public String execute() throws Exception {
-		// TODO Auto-generated method stub		
-		
+		// TODO Auto-generated method stub
+
 		return INPUT;
 	}
 
-	
-	public String inLogin(){
+	public String inLogin() {
 		if (!userServer.isUser(user.getUserName(), user.getPassword())) {
 			requestMap.put("login_error", "用户名或密码不正确!");
 			return INPUT;
@@ -37,15 +36,13 @@ public class LoginAction extends ActionSupport implements ModelDriven<User>, Req
 		return SUCCESS;
 
 	}
-	
-	
-	public String outLogin(){
+
+	public String outLogin() {
 		requestMap.put("login_error", "");
 		sessionMap.put("thisUser", "");
 		return INPUT;
 	}
-	
-	
+
 	@Override
 	public User getModel() {
 		// TODO Auto-generated method stub

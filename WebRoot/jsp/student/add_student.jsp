@@ -38,11 +38,11 @@
 				<tr>
 					<td>性别</td>
 					<td>
-						<c:if test="${student.sex==true || empty student.sex}">
+						<c:if test="${student.sex==0 || empty student.sex}">
 								<input type="radio" name="sex" id="stSex" value="1" checked/>男
 								<input type="radio" name="sex" id="stSex" value="0"/>女
 						</c:if>
-						<c:if test="${student.sex==false}">
+						<c:if test="${student.sex==1}">
 								<input type="radio" name="sex" id="stSex" value="1" />男
 								<input type="radio" name="sex" id="stSex" value="0" checked/>女
 						</c:if>

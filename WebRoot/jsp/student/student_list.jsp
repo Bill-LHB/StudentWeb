@@ -18,7 +18,7 @@
 			<th colspan="2">操作</th>
 		</tr>
 		<c:set var="c" value="1"/>
-		<c:forEach items="${studentLists}" var="stu">
+		<c:forEach items="${studentList}" var="stu">
 		
 		<c:if test="${c=='1'}">
 			<c:set var="color" value="#f5f5f5"/>
@@ -37,8 +37,8 @@
 				<td>${stu.name}</td>
 				<td>${stu.number}</td>
 				<td>${stu.age}</td>
-				<td><c:if test="${stu.sex==true}">男</c:if>
-					<c:if test="${stu.sex==false}">女</c:if>
+				<td><c:if test="${stu.sex==0}">男</c:if>
+					<c:if test="${stu.sex==1}">女</c:if>
 				</td>
 				<td><a href="/student_delete.do?id=${stu.id}">删除</a></td>
 				

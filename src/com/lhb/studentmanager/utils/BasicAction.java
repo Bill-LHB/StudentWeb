@@ -10,17 +10,18 @@ import org.apache.struts2.ServletActionContext;
 import com.opensymphony.xwork2.ActionSupport;
 
 public class BasicAction extends ActionSupport {
-	
-	public 	HttpServletRequest request;
-	public HttpServletResponse response; 
+
+	public HttpServletRequest request;
+	public HttpServletResponse response;
 	public HttpSession session;
 	public ServletContext application;
+
 	public BasicAction() {
 		// TODO Auto-generated constructor stub
 		request = ServletActionContext.getRequest();
-		response=ServletActionContext.getResponse(); 
-		session =request.getSession();
-		application=request.getServletContext();
-		//.........	
+		response = ServletActionContext.getResponse();
+		session = request.getSession();
+		application = request.getServletContext();
+		// .........
 	}
 }

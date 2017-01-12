@@ -9,7 +9,6 @@ import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
 
-
 import com.lhb.studentmanager.model.User;
 
 /**
@@ -18,7 +17,7 @@ import com.lhb.studentmanager.model.User;
 
 public class LoginAuthenticationFilter implements Filter {
 	private static final String HttpServletResponse = null;
-	private String[] urls = null;//不需要过滤的url数组
+	private String[] urls = null;// 不需要过滤的url数组
 
 	/**
 	 * Default constructor.
@@ -46,12 +45,13 @@ public class LoginAuthenticationFilter implements Filter {
 
 		String url = ((HttpServletRequest) request).getRequestURI();
 		if (!isFilter(url)) {// 判断是否需要过滤，不需要过滤直接放行
-			
+
 			chain.doFilter(request, response);
 		}
-		
-		if (((HttpServletRequest) request).getSession().getAttribute("thisUser") == null ||"".equals(((HttpServletRequest) request).getSession().getAttribute("thisUser"))) {
-			request.getRequestDispatcher( "/jsp/login.jsp").forward(request, response);
+
+		if (((HttpServletRequest) request).getSession().getAttribute("thisUser") == null
+				|| "".equals(((HttpServletRequest) request).getSession().getAttribute("thisUser"))) {
+			request.getRequestDispatcher("/jsp/login.jsp").forward(request, response);
 			return;
 		}
 		chain.doFilter(request, response);
@@ -65,8 +65,10 @@ public class LoginAuthenticationFilter implements Filter {
 		String url = fConfig.getInitParameter("url");
 		urls = url.split(";");
 	}
+
 	/**
 	 * 判断是否需要过滤
+	 * 
 	 * @param url
 	 * @return
 	 */
