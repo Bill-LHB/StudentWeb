@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+                                   "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 2017-1-12 15:54:46 by Hibernate Tools 3.5.0.Final -->
+<hibernate-mapping>
+ <class name="com.lhb.studentmanager.model.Student" table="STUDENT">
+  <id name="id" type="int">
+   <column name="ID"/>
+   <generator class="native"/>
+  </id>
+  <property generated="never" lazy="false" name="name" type="java.lang.String">
+   <column name="NAME"/>
+  </property>
+  <property generated="never" lazy="false" name="number" type="int">
+   <column name="NUMBER"/>
+  </property>
+  <property generated="never" lazy="false" name="age" type="int">
+   <column name="AGE"/>
+  </property>
+  <property generated="never" lazy="false" name="sex" type="int">
+   <column name="SEX"/>
+  </property>
+  <property generated="never" lazy="false" name="headerImg" type="java.lang.String">
+   <column name="HEADERIMG"/>
+  </property>
+ </class>
+</hibernate-mapping>
