@@ -2,7 +2,11 @@ package com.lhb.studentmanager.action;
 
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+
 import org.apache.log4j.Logger;
+import org.apache.struts2.ServletActionContext;
 import org.apache.struts2.interceptor.RequestAware;
 import org.apache.struts2.interceptor.SessionAware;
 
@@ -33,6 +37,9 @@ public class LoginAction extends ActionSupport implements ModelDriven<User>, Req
 		}
 		User u = userServer.getUser(user.getUserName());
 		sessionMap.put("thisUser", u);
+		HttpServletRequest request = ServletActionContext.getRequest();  
+	    HttpSession session = request.getSession(); 
+		session.setMaxInactiveInterval(3);
 		return SUCCESS;
 
 	}

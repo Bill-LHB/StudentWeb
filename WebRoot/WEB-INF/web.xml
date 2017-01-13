@@ -4,18 +4,8 @@
 	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd"
 	id="WebApp_ID" version="3.0">
 	<display-name>StudentManger5.0</display-name>
-	
-	
-	<filter>
-		<filter-name>struts2</filter-name>
-		<filter-class>org.apache.struts2.dispatcher.filter.StrutsPrepareAndExecuteFilter</filter-class>
-	</filter>
-	<filter-mapping>
-		<filter-name>struts2</filter-name>
-		<url-pattern>*.do</url-pattern>
-	</filter-mapping>
-	
-<filter>
+
+<!-- <filter>
 		<filter-name>LoginAuthenticationFilter</filter-name>
 		<filter-class>com.lhb.studentmanager.LoginAuthenticationFilter</filter-class>
 		<init-param>
@@ -26,16 +16,32 @@
 	<filter-mapping>
 		<filter-name>LoginAuthenticationFilter</filter-name>
 		<url-pattern>*.jsp</url-pattern>
-	</filter-mapping>
-	
-	
-	
-	
-	
-	
+	</filter-mapping> -->
 
-	
-	
+	<filter>
+		<filter-name>LoginAuthenticationFilter</filter-name>
+		<filter-class>com.lhb.studentmanager.LoginAuthenticationFilter</filter-class>
+		<init-param>
+			<param-name>url</param-name>
+			<param-value>login;login_outLogin.do;css;js;images;</param-value>
+		</init-param>
+	</filter>
+	<filter-mapping>
+		<filter-name>LoginAuthenticationFilter</filter-name>
+		<url-pattern>/*</url-pattern>
+	</filter-mapping>
+
+	<filter>
+		<filter-name>struts2</filter-name>
+		<filter-class>org.apache.struts2.dispatcher.filter.StrutsPrepareAndExecuteFilter</filter-class>
+	</filter>
+	<filter-mapping>
+		<filter-name>struts2</filter-name>
+		<url-pattern>*.do</url-pattern>
+	</filter-mapping>
+
+
+
 
 
 

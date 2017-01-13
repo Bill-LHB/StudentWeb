@@ -51,7 +51,8 @@ public class LoginAuthenticationFilter implements Filter {
 
 		if (((HttpServletRequest) request).getSession().getAttribute("thisUser") == null
 				|| "".equals(((HttpServletRequest) request).getSession().getAttribute("thisUser"))) {
-			request.getRequestDispatcher("/jsp/login.jsp").forward(request, response);
+			request.getRequestDispatcher("../login.jsp").forward(request, response);
+			
 			return;
 		}
 		chain.doFilter(request, response);

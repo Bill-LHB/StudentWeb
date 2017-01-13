@@ -40,9 +40,9 @@
 				<td><c:if test="${stu.sex==0}">男</c:if>
 					<c:if test="${stu.sex==1}">女</c:if>
 				</td>
-				<td><a href="/student_delete.do?id=${stu.id}">删除</a></td>
+				<td><a href="<%=request.getContextPath()%>/student_delete.do?id=${stu.id}">删除</a></td>
 				
-				<td><a href="/student_update.do?id=${stu.id}">修改</a></td>
+				<td><a href="<%=request.getContextPath()%>/student_update.do?id=${stu.id}">修改</a></td>
 			</tr>
 			<c:set var="c" value="${c+1}"/>			
 		</c:forEach>
