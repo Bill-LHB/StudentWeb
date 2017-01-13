@@ -45,14 +45,19 @@ public class LoginAuthenticationFilter implements Filter {
 
 		String url = ((HttpServletRequest) request).getRequestURI();
 		if (!isFilter(url)) {// 判断是否需要过滤，不需要过滤直接放行
-
 			chain.doFilter(request, response);
 		}
 
 		if (((HttpServletRequest) request).getSession().getAttribute("thisUser") == null
 				|| "".equals(((HttpServletRequest) request).getSession().getAttribute("thisUser"))) {
-			request.getRequestDispatcher("../login.jsp").forward(request, response);
 			
+			
+			response.getWriter().println("<script type='text/javascript'>window.parent.location='login_login.do'</script>");
+
+			
+			
+			//request.getRequestDispatcher("./login.jsp").forward(request, response);
+//			//response.sendRedirect(req.getContextPath()+"/login_login.do");
 			return;
 		}
 		chain.doFilter(request, response);
